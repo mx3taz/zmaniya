@@ -1,0 +1,28 @@
+<section class="zm-native-page gut">
+  <h1 class="big">Collections</h1>
+  <div class="zm-card-grid">
+    {% paginate collections by 24 %}
+      {% for collection in collections %}
+        <a class="zm-basic-card" href="{{ collection.url }}">
+          {% if collection.preview_image %}
+            <img src="{{ collection.preview_image.medium | default: collection.preview_image.original }}" alt="{{ collection.title | escape }}" loading="lazy">
+          {% elsif collection.image %}
+            <img src="{{ collection.image }}" alt="{{ collection.title | escape }}" loading="lazy">
+          {% endif %}
+          <h2>{{ collection.title }}</h2>
+          {% if collection.description != blank %}<p>{{ collection.description | strip_html | truncate: 140 }}</p>{% endif %}
+        </a>
+      {% else %}
+        <p class="mono">No visible collections are available yet.</p>
+      {% endfor %}
+      {{ paginate | default_pagination }}
+    {% endpaginate %}
+  </div>
+</section>
+{% schema %}
+{
+  "name": "ZMANIYA collections",
+  "settings": [],
+  "presets": [{ "name": "ZMANIYA collections" }]
+}
+{% endschema %}

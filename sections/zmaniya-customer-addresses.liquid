@@ -1,0 +1,62 @@
+<section class="zm-native-page gut">
+  <div class="zm-account-wrap">
+    <p class="mono" style="color:var(--bone2)">ZMANIYA · CUSTOMER AREA</p>
+    <h1 class="big">Your addresses.</h1>
+    <p class="zm-account-intro">Keep delivery details up to date for future orders.</p>
+    {% if customer %}
+      <div class="zm-account-links"><a href="{{ routes.account_url }}">← Back to account</a></div>
+      <div class="zm-account-grid">
+        {% for address in customer.addresses %}
+          <div class="zm-account-panel">
+            <h2>Saved address{% if address.default %} · Default{% endif %}</h2>
+            {% form 'customer_address', address, class: 'zm-account-form' %}
+              {{ form.errors | default_errors }}
+              <label>First name<input type="text" name="first_name" value="{{ address.first_name | escape }}"></label>
+              <label>Last name<input type="text" name="last_name" value="{{ address.last_name | escape }}"></label>
+              <label>Company<input type="text" name="company" value="{{ address.company | escape }}"></label>
+              <label>Address line 1<input type="text" name="first_line" value="{{ address.address1 | escape }}" required></label>
+              <label>Address line 2<input type="text" name="second_line" value="{{ address.address2 | escape }}"></label>
+              <label>City<input type="text" name="city" value="{{ address.city | escape }}" required></label>
+              <label>Region / Governorate<input type="text" name="region" value="{{ address.province | escape }}"></label>
+              <label>Postal code<input type="text" name="zip_code" value="{{ address.zip | escape }}"></label>
+              <label>Country code (ISO 3166-1 alpha-2)<input type="text" name="country_code" value="{{ address.country_code | escape }}" maxlength="2" required></label>
+              <label>Phone<input type="tel" name="phone" value="{{ address.phone | escape }}"></label>
+              <label class="zm-account-inline"><input type="checkbox" name="default" value="1" {% if address.default %}checked{% endif %}> Set as default address</label>
+              <button class="btn primary block" type="submit">Save address</button>
+            {% endform %}
+            {% form 'customer_address_remove', address %}
+              <button class="btn block" type="submit" style="margin-top:10px">Remove address</button>
+            {% endform %}
+          </div>
+        {% endfor %}
+        <div class="zm-account-panel">
+          <h2>Add an address</h2>
+          {% form 'customer_address', customer.new_address, class: 'zm-account-form' %}
+            {{ form.errors | default_errors }}
+            <label>First name<input type="text" name="first_name" value="{{ form.first_name | escape }}"></label>
+            <label>Last name<input type="text" name="last_name" value="{{ form.last_name | escape }}"></label>
+            <label>Company<input type="text" name="company" value="{{ form.company | escape }}"></label>
+            <label>Address line 1<input type="text" name="first_line" value="{{ form.first_line | escape }}" required></label>
+            <label>Address line 2<input type="text" name="second_line" value="{{ form.second_line | escape }}"></label>
+            <label>City<input type="text" name="city" value="{{ form.city | escape }}" required></label>
+            <label>Region / Governorate<input type="text" name="region" value="{{ form.region | escape }}"></label>
+            <label>Postal code<input type="text" name="zip_code" value="{{ form.zip_code | escape }}"></label>
+            <label>Country code (ISO 3166-1 alpha-2)<input type="text" name="country_code" value="{{ form.country_code | default: 'TN' | escape }}" maxlength="2" required></label>
+            <label>Phone<input type="tel" name="phone" value="{{ form.phone | escape }}"></label>
+            <label class="zm-account-inline"><input type="checkbox" name="default" value="1"> Set as default address</label>
+            <button class="btn primary block" type="submit">Add address</button>
+          {% endform %}
+        </div>
+      </div>
+    {% else %}
+      <div class="zm-account-panel"><p>Log in to manage your saved addresses.</p><a class="btn primary" href="{{ routes.account_login_url }}">Log in</a></div>
+    {% endif %}
+  </div>
+</section>
+{% schema %}
+{
+  "name": "ZMANIYA customer addresses",
+  "settings": [],
+  "presets": [{ "name": "Customer addresses" }]
+}
+{% endschema %}

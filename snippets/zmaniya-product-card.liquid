@@ -1,0 +1,6 @@
+<a class="zm-basic-card" href="{{ product.url }}">
+  {% if product.preview_image %}<img src="{{ product.preview_image.medium }}" alt="{{ product.name | escape }}" loading="lazy">{% elsif product.thumbnail %}<img src="{{ product.thumbnail }}" alt="{{ product.name | escape }}" loading="lazy">{% endif %}
+  <h2>{{ product.name }}</h2>
+  <p>{{ product.price | money }}</p>
+  {% unless product.available %}<p class="red mono">Sold out</p>{% endunless %}
+</a>

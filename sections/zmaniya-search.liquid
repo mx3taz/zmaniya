@@ -1,0 +1,31 @@
+<section class="zm-native-page gut">
+  <h1 class="big">Search</h1>
+  <form action="/search" method="get" class="zm-field zm-search-form" role="search" style="max-width:520px">
+    <label for="zmaniya-search">Search the archive</label>
+    <input id="zmaniya-search" name="q" type="search" value="{{ search.terms | escape }}" placeholder="Search products">
+    <button class="btn primary" type="submit">Search</button>
+  </form>
+
+  {% if search.performed %}
+    <p class="mono zm-result-count" style="color:var(--bone2)">{{ search.results_count }} results for “{{ search.terms | escape }}”</p>
+    <div class="zm-card-grid">
+      {% paginate search.results by 24 %}
+        {% for product in search.results %}
+          {% render 'zmaniya-product-card', product: product %}
+        {% else %}
+          <p class="mono">No products found. Try another search.</p>
+        {% endfor %}
+        {{ paginate | default_pagination }}
+      {% endpaginate %}
+    </div>
+  {% else %}
+    <p class="mono zm-result-count" style="color:var(--bone2)">Search the ZMANIYA archive.</p>
+  {% endif %}
+</section>
+{% schema %}
+{
+  "name": "ZMANIYA search",
+  "settings": [],
+  "presets": [{ "name": "ZMANIYA search" }]
+}
+{% endschema %}

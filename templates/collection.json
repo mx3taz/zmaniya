@@ -1,0 +1,12 @@
+{
+  "label": "ZMANIYA collection",
+  "sections": {
+    "main": {
+      "type": "zmaniya-collection",
+      "settings": {}
+    }
+  },
+  "order": [
+    "main"
+  ]
+}

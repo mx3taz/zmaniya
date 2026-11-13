@@ -1,0 +1,13 @@
+{
+  "current": {
+    "sections": {
+      "zmaniya-header": {
+        "type": "zmaniya-header",
+        "settings": {}
+      }
+    }
+  },
+  "presets": {
+    "Default": {}
+  }
+}

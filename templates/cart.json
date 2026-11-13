@@ -1,0 +1,12 @@
+{
+  "label": "ZMANIYA cart",
+  "sections": {
+    "main": {
+      "type": "zmaniya-cart",
+      "settings": {}
+    }
+  },
+  "order": [
+    "main"
+  ]
+}

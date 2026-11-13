@@ -1,0 +1,12 @@
+{
+  "label": "ZMANIYA upsell",
+  "sections": {
+    "main": {
+      "type": "zmaniya-upsell",
+      "settings": {}
+    }
+  },
+  "order": [
+    "main"
+  ]
+}

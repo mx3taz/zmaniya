@@ -1,0 +1,28 @@
+<header class="nav gut" id="nav">
+  <a class="brand" href="{{ routes.root_url }}" aria-label="ZMANIYA, back to top">
+    <img src="{{ 'logo.png' | asset_url }}" alt="" width="30" height="31"><span>ZMANIYA</span>
+  </a>
+  <nav class="links" aria-label="Primary">
+    <a href="{{ routes.root_url }}#story">The era</a>
+    <a href="{{ routes.root_url }}#collection">Collection</a>
+    <a href="{{ routes.root_url }}#lookbook">Lookbook</a>
+  </nav>
+  <div class="navr">
+    <span class="ar" aria-hidden="true">زمنية</span>
+    {% if customer %}
+      <a class="cartbtn accountbtn" href="{{ routes.account_url }}">Account</a>
+    {% else %}
+      <a class="cartbtn accountbtn" href="{{ routes.account_login_url }}">Log in</a>
+    {% endif %}
+    <a class="cartbtn" id="cartBtn" href="{{ routes.cart_url }}" aria-label="Cart, {{ cart.count }} items">
+      Cart <b id="cartCount" class="{% if cart.count == 0 %}zero{% endif %}">{{ cart.count }}</b>
+    </a>
+  </div>
+</header>
+{% schema %}
+{
+  "name": "ZMANIYA header",
+  "settings": [],
+  "presets": [{ "name": "ZMANIYA header" }]
+}
+{% endschema %}

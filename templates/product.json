@@ -1,0 +1,12 @@
+{
+  "label": "ZMANIYA product",
+  "sections": {
+    "main": {
+      "type": "zmaniya-product",
+      "settings": {}
+    }
+  },
+  "order": [
+    "main"
+  ]
+}

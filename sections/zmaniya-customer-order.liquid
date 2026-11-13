@@ -1,0 +1,36 @@
+<section class="zm-native-page gut">
+  <div class="zm-account-wrap" style="max-width:960px">
+    <p class="mono" style="color:var(--bone2)">ZMANIYA · ORDER DETAILS</p>
+    <h1 class="big">{{ order.name | escape }}</h1>
+    <p class="zm-account-intro">Placed {{ order.created_at | date: "%d %B %Y" }} · Payment: {{ order.financial_status | replace: '_', ' ' }}{% if order.fulfillment_status %} · Fulfillment: {{ order.fulfillment_status | replace: '_', ' ' }}{% endif %}</p>
+    <div class="zm-account-panel" style="margin-top:28px">
+      <h2>Pieces in this order</h2>
+      <div class="zm-account-list">
+        {% for variant in order.order_variants %}
+          <div class="zm-account-row">
+            <div><strong>{{ variant.name | escape }}</strong><small>Quantity: {{ variant.quantity }}</small></div>
+            <strong>{{ variant.price | money }}</strong>
+          </div>
+        {% else %}
+          <p class="zm-empty">No line items are available for this order.</p>
+        {% endfor %}
+      </div>
+      <div class="zm-account-row"><strong>Subtotal</strong><strong>{{ order.sub_total | money }}</strong></div>
+      <div class="zm-account-row"><strong>Total</strong><strong>{{ order.total | money }}</strong></div>
+    </div>
+    {% if order.shipping_address %}
+      <div class="zm-account-panel" style="margin-top:20px">
+        <h2>Shipping address</h2>
+        <p>{{ order.shipping_address.name | escape }}<br>{{ order.shipping_address.address1 | escape }}{% if order.shipping_address.address2 %}<br>{{ order.shipping_address.address2 | escape }}{% endif %}<br>{{ order.shipping_address.city | escape }}{% if order.shipping_address.country %}, {{ order.shipping_address.country | escape }}{% endif %}</p>
+      </div>
+    {% endif %}
+    <div class="zm-account-links"><a href="{{ routes.account_url }}">← Back to account</a></div>
+  </div>
+</section>
+{% schema %}
+{
+  "name": "ZMANIYA customer order",
+  "settings": [],
+  "presets": [{ "name": "Customer order" }]
+}
+{% endschema %}

@@ -1,0 +1,12 @@
+{
+  "label": "ZMANIYA customer addresses",
+  "sections": {
+    "main": {
+      "type": "zmaniya-customer-addresses",
+      "settings": {}
+    }
+  },
+  "order": [
+    "main"
+  ]
+}

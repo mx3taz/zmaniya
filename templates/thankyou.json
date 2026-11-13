@@ -1,0 +1,12 @@
+{
+  "label": "ZMANIYA thankyou",
+  "sections": {
+    "main": {
+      "type": "zmaniya-thankyou",
+      "settings": {}
+    }
+  },
+  "order": [
+    "main"
+  ]
+}

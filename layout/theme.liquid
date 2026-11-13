@@ -1,0 +1,24 @@
+<!doctype html>
+<html lang="{{ request.locale.iso_code | default: 'en' }}">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+  <meta name="theme-color" content="#0a0908">
+  <title>{{ page_title | default: store.name }}</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Anton&family=Aref+Ruqaa:wght@400;700&family=Archivo:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap">
+  <link rel="stylesheet" href="{{ 'zmaniya.css' | asset_url }}">
+  {{ content_for_header }}
+  <script src="https://unpkg.com/@youcan/js@latest/dist/index.umd.js"></script>
+</head>
+<body>
+  {% section 'zmaniya-header' %}
+  {% if template.name == 'index' %}
+    {{ content_for_layout }}
+  {% else %}
+    <main id="main">{{ content_for_layout }}</main>
+  {% endif %}
+  {{ content_for_footer }}
+</body>
+</html>

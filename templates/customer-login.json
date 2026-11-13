@@ -1,0 +1,12 @@
+{
+  "label": "ZMANIYA customer login",
+  "sections": {
+    "main": {
+      "type": "zmaniya-customer-login",
+      "settings": {}
+    }
+  },
+  "order": [
+    "main"
+  ]
+}

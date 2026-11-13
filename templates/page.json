@@ -1,0 +1,12 @@
+{
+  "label": "ZMANIYA page",
+  "sections": {
+    "main": {
+      "type": "zmaniya-page",
+      "settings": {}
+    }
+  },
+  "order": [
+    "main"
+  ]
+}

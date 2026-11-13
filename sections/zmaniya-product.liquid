@@ -1,0 +1,47 @@
+<section class="zm-native-page gut">
+  <div class="zm-product-layout">
+    <div class="zm-product-gallery">
+      {% if product.preview_image %}
+        <img src="{{ product.preview_image.large }}" srcset="{{ product.preview_image.small }} 300w, {{ product.preview_image.medium }} 600w, {{ product.preview_image.large }} 1000w" alt="{{ product.name | escape }}">
+      {% elsif product.thumbnail %}
+        <img src="{{ product.thumbnail }}" alt="{{ product.name | escape }}">
+      {% endif %}
+    </div>
+    <div class="zm-product-copy">
+      <p class="mono" style="color:var(--bone2);margin:0">ZMANIYA · THE ARCHIVE</p>
+      <h1>{{ product.name }}</h1>
+      <p class="pdp-price">{{ product.selected_or_first_available_variant.price | default: product.price | money }}</p>
+      {% if product.description != blank %}<div class="zm-description">{{ product.description }}</div>{% endif %}
+      {% form 'product', product, id: 'zmaniya-native-product-form', return_to: '/cart' %}
+        {% if product.variants.size > 1 %}
+          <div class="zm-field">
+            <label for="zmaniya-variant">Choose size / variant</label>
+            <select id="zmaniya-variant" name="id">
+              {% for variant in product.variants %}
+                <option value="{{ variant.id }}" {% if variant.id == product.selected_or_first_available_variant.id %}selected{% endif %} {% unless variant.available %}disabled{% endunless %}>
+                  {% for variation in variant.variations %}{% if variation.name != blank %}{{ variation.name }}: {% endif %}{{ variation.value | default: variation }}{% unless forloop.last %} · {% endunless %}{% endfor %}{% unless variant.available %} — Sold out{% endunless %}
+                </option>
+              {% endfor %}
+            </select>
+          </div>
+        {% endif %}
+        <div class="zm-field" style="margin-top:18px">
+          <label for="zmaniya-quantity">Quantity</label>
+          <input id="zmaniya-quantity" name="quantity" type="number" value="1" min="1" max="9">
+        </div>
+        <button class="btn primary block" type="submit" style="margin-top:20px" {% unless product.available %}disabled{% endunless %}>
+          {% if product.available %}Add to cart{% else %}Sold out{% endif %}
+        </button>
+      {% endform %}
+      <details class="acc" open><summary>Product information</summary><p>Product price, available variants and stock are managed in your YouCan dashboard.</p></details>
+      <a class="btn" href="{{ routes.root_url }}#collection">Back to the collection</a>
+    </div>
+  </div>
+</section>
+{% schema %}
+{
+  "name": "ZMANIYA product",
+  "settings": [],
+  "presets": [{ "name": "ZMANIYA product" }]
+}
+{% endschema %}

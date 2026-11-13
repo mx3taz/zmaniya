@@ -1,0 +1,79 @@
+<section class="zm-native-page gut">
+  <div class="shop-head">
+    <h1 class="big"><small>ZMANIYA · ARCHIVE</small>Your cart</h1>
+    <a class="btn" href="{{ routes.root_url }}#collection">Continue shopping</a>
+  </div>
+  {% if cart.items.size == 0 %}
+    <p class="mono" style="color:var(--bone2)">Your cart is empty.</p>
+  {% else %}
+    {% form 'cart', cart %}
+      <div class="zm-cart-lines">
+        {% for item in cart.items %}
+          <div class="zm-cart-line">
+            {% if item.image %}<img src="{{ item.image }}" alt="{{ item.name | escape }}">{% endif %}
+            <div>
+              <h3>{{ item.name | escape }}</h3>
+              {% if item.variations.size > 0 %}
+                <p>
+                  {% for variation in item.variations %}
+                    {% if variation.name %}{{ variation.name | escape }}: {% endif %}{{ variation.value | default: variation | escape }}{% unless forloop.last %} · {% endunless %}
+                  {% endfor %}
+                </p>
+              {% endif %}
+              <p>{{ item.price | money }} each</p>
+              <a href="{{ item.url }}">View product</a>
+            </div>
+            <div class="zm-field">
+              <label for="updates-{{ item.id }}">Quantity (0 removes)</label>
+              <input id="updates-{{ item.id }}" type="number" name="updates[{{ item.id }}]" value="{{ item.quantity }}" min="0" {% if item.inventory != nil %}max="{{ item.inventory }}"{% endif %}>
+            </div>
+          </div>
+        {% endfor %}
+      </div>
+      <div class="zm-field" style="margin-top:22px">
+        <label for="zmaniya-cart-note">Order note (optional)</label>
+        <textarea id="zmaniya-cart-note" name="note" rows="3" style="width:100%;background:var(--ink2);border:1px solid var(--line);color:var(--bone);padding:14px">{{ cart.note | escape }}</textarea>
+      </div>
+      <div class="zm-cart-summary">
+        <span class="mono">Items subtotal</span>
+        <strong class="price">{{ cart.sub_total | money }}</strong>
+      </div>
+      {% if cart.discounted_price > 0 %}
+        <div class="zm-cart-summary">
+          <span class="mono">Discount</span>
+          <strong class="price">−{{ cart.discounted_price | money }}</strong>
+        </div>
+        <div class="zm-cart-summary">
+          <span class="mono">Subtotal after discount</span>
+          <strong class="price">{{ cart.discounted_sub_total | money }}</strong>
+        </div>
+      {% endif %}
+      <div class="buyrow" style="margin-top:20px">
+        <button class="btn" type="submit">Update cart</button>
+        <button class="btn primary" type="submit" name="checkout">Proceed to checkout</button>
+      </div>
+    {% endform %}
+
+    <div class="zm-account-panel" style="max-width:620px;margin-top:28px">
+      <h2>Discount code</h2>
+      {% form 'coupon', class: 'zm-account-form' %}
+        {{ form.errors | default_errors }}
+        <label>Enter your code<input type="text" name="coupon" autocomplete="off" placeholder="DISCOUNT CODE" required></label>
+        <button class="btn block" type="submit">Apply code</button>
+      {% endform %}
+      {% if cart.coupon.size > 0 %}
+        <p class="zm-account-muted">A discount code is applied to this cart.</p>
+        {% form 'coupon_remove' %}
+          <button class="btn block" type="submit">Remove discount</button>
+        {% endform %}
+      {% endif %}
+    </div>
+  {% endif %}
+</section>
+{% schema %}
+{
+  "name": "ZMANIYA cart",
+  "settings": [],
+  "presets": [{ "name": "ZMANIYA cart" }]
+}
+{% endschema %}

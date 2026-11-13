@@ -1,0 +1,34 @@
+<section class="zm-native-page gut">
+  <div class="zm-account-wrap" style="max-width:620px">
+    <p class="mono" style="color:var(--bone2)">ZMANIYA · CUSTOMER AREA</p>
+    <h1 class="big">Join the archive.</h1>
+    <p class="zm-account-intro">Create an account to keep your order history and customer details together.</p>
+    {% if customer %}
+      <div class="zm-account-panel" style="margin-top:28px">
+        <p>You are already signed in as {{ customer.email | escape }}.</p>
+        <a class="btn primary" href="{{ routes.account_url }}">Open your account</a>
+      </div>
+    {% else %}
+      <div class="zm-account-panel" style="margin-top:28px">
+        {% form 'create_customer', return_to: routes.account_url, class: 'zm-account-form' %}
+          {{ form.errors | default_errors }}
+          <label>First name<input type="text" name="first_name" value="{{ form.first_name | escape }}" autocomplete="given-name"></label>
+          <label>Last name<input type="text" name="last_name" value="{{ form.last_name | escape }}" autocomplete="family-name"></label>
+          <label>Email address<input type="email" name="email" value="{{ form.email | escape }}" autocomplete="email" required></label>
+          <label>Phone (optional)<input type="tel" name="phone" value="{{ form.phone | escape }}" autocomplete="tel"></label>
+          <label>Password<input type="password" name="password" autocomplete="new-password" minlength="6" required></label>
+          <label>Confirm password<input type="password" name="password_confirmation" autocomplete="new-password" minlength="6" required></label>
+          <button class="btn primary block" type="submit">Create account</button>
+        {% endform %}
+        <p class="zm-account-muted">Already have an account? <a href="{{ routes.account_login_url }}">Log in</a></p>
+      </div>
+    {% endif %}
+  </div>
+</section>
+{% schema %}
+{
+  "name": "ZMANIYA customer register",
+  "settings": [],
+  "presets": [{ "name": "Customer registration" }]
+}
+{% endschema %}

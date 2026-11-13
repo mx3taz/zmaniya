@@ -1,0 +1,24 @@
+{% assign collection_heading = category.title | default: collection.title %}
+{% assign collection_description = category.description | default: collection.description %}
+{% assign collection_products = category.products | default: collection.products %}
+<section class="zm-native-page gut">
+  <h1 class="big">{{ collection_heading | escape }}</h1>
+  {% if collection_description != blank %}<p class="lead">{{ collection_description | strip_html }}</p>{% endif %}
+  <div class="zm-card-grid">
+    {% paginate collection_products by 24 %}
+      {% for product in collection_products %}
+        {% render 'zmaniya-product-card', product: product %}
+      {% else %}
+        <p class="mono">No products found in this collection.</p>
+      {% endfor %}
+      {{ paginate | default_pagination }}
+    {% endpaginate %}
+  </div>
+</section>
+{% schema %}
+{
+  "name": "ZMANIYA collection",
+  "settings": [],
+  "presets": [{ "name": "ZMANIYA collection" }]
+}
+{% endschema %}

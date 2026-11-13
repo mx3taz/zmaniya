@@ -1,0 +1,12 @@
+{
+  "label": "ZMANIYA customer order",
+  "sections": {
+    "main": {
+      "type": "zmaniya-customer-order",
+      "settings": {}
+    }
+  },
+  "order": [
+    "main"
+  ]
+}
